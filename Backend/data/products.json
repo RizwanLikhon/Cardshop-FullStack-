@@ -1,0 +1,16 @@
+[
+  {
+    "id": "pe-pack",
+    "name": "Prismatic Evolution Booster Pack",
+    "price": 4.49,
+    "image": "/images/pe-pack.jpg",
+    "category": "pack"
+  },
+  {
+    "id": "charizard-ex",
+    "name": "Charizard ex",
+    "price": 59.99,
+    "image": "/images/charizard-ex.jpg",
+    "category": "card"
+  }
+]
