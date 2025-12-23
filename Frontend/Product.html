@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rizzy Pokémon Shop – Products</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header>
+  <h1>Rizzy Pokémon Shop</h1>
+</header>
+
+<nav>
+  <ul>
+    <li><a href="index.html">Home</a></li>
+
+    <li class="dropdown">
+      <button class="dropdown-toggle" id="productsBtn">Products ▾</button>
+      <ul class="dropdown-menu" id="productsMenu">
+        <li><a href="Product/pack.html">Booster Packs</a></li>
+        <li><a href="Product/cards.html">Cards</a></li>
+        <li><a href="Product/grandmaster.html">Grand Master Set</a></li>
+        <li><a href="Product/master.html">Master Set</a></li>
+      </ul>
+    </li>
+
+    <li class="cart-icon">
+      <a href="cart.html">🛒 <span id="cart-count">0</span></a>
+    </li>
+  </ul>
+</nav>
+
+<main>
+
+  <!-- BOOSTER PACKS -->
+  <section>
+    <h2>Booster Packs</h2>
+
+    <div class="pokemon-grid">
+
+      <div class="pokemon-product">
+        <img src="images/sv-pack.jpg" alt="Scarlet & Violet Booster Pack">
+        <h3>Scarlet & Violet Booster Pack</h3>
+        <p class="price">$4.49</p>
+
+        <div class="qty-selector">
+          <button onclick="changeQty('sv-pack', -1)">−</button>
+          <span id="qty-sv-pack">0</span>
+          <button onclick="changeQty('sv-pack', 1)">+</button>
+        </div>
+
+        <button onclick="addToCart({
+          id:'sv-pack',
+          name:'Scarlet & Violet Booster Pack',
+          price:4.49,
+          image:'images/sv-pack.jpg'
+        })">
+          Add to Cart
+        </button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CARDS -->
+  <section>
+    <h2>Cards</h2>
+
+    <div class="pokemon-grid">
+
+      <div class="pokemon-product">
+        <img src="images/card1.jpg" alt="Chase Pokémon Card">
+        <h3>Chase Pokémon Card</h3>
+        <p class="price">$49.99</p>
+
+        <div class="qty-selector">
+          <button onclick="changeQty('chase-card', -1)">−</button>
+          <span id="qty-chase-card">0</span>
+          <button onclick="changeQty('chase-card', 1)">+</button>
+        </div>
+
+        <button onclick="addToCart({
+          id:'chase-card',
+          name:'Chase Pokémon Card',
+          price:49.99,
+          image:'images/card1.jpg'
+        })">
+          Add to Cart
+        </button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- GRAND MASTER SET -->
+  <section>
+    <h2>Grand Master Set</h2>
+
+    <div class="pokemon-grid">
+
+      <div class="pokemon-product">
+        <img src="images/grandmaster.jpg" alt="Grand Master Set">
+        <h3>Grand Master Collection</h3>
+        <p class="price">$399.99</p>
+
+        <div class="qty-selector">
+          <button onclick="changeQty('grand-master', -1)">−</button>
+          <span id="qty-grand-master">0</span>
+          <button onclick="changeQty('grand-master', 1)">+</button>
+        </div>
+
+        <button onclick="addToCart({
+          id:'grand-master',
+          name:'Grand Master Collection',
+          price:399.99,
+          image:'images/grandmaster.jpg'
+        })">
+          Add to Cart
+        </button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- MASTER SET -->
+  <section>
+    <h2>Master Set</h2>
+
+    <div class="pokemon-grid">
+
+      <div class="pokemon-product">
+        <img src="images/master.jpg" alt="Master Set">
+        <h3>Master Set</h3>
+        <p class="price">$249.99</p>
+
+        <div class="qty-selector">
+          <button onclick="changeQty('master-set', -1)">−</button>
+          <span id="qty-master-set">0</span>
+          <button onclick="changeQty('master-set', 1)">+</button>
+        </div>
+
+        <button onclick="addToCart({
+          id:'master-set',
+          name:'Master Set',
+          price:249.99,
+          image:'images/master.jpg'
+        })">
+          Add to Cart
+        </button>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+<script src="js/script.js"></script>
+</body>
+</html>

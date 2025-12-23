@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grand Master Sets</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+
+<body>
+
+<header>
+  <h1>Grand Master Sets</h1>
+</header>
+
+<nav>
+  <ul>
+    <li><a href="../index.html">Home</a></li>
+
+    <li class="dropdown">
+      <button class="dropdown-toggle" id="productsBtn">Products ▾</button>
+      <ul class="dropdown-menu" id="productsMenu">
+        <li><a href="pack.html">Booster Packs</a></li>
+        <li><a href="cards.html">Cards</a></li>
+        <li><a href="grandmaster.html">Grand Master Set</a></li>
+        <li><a href="master.html">Master Set</a></li>
+      </ul>
+    </li>
+
+    <li class="cart-icon">
+      <a href="../cart.html">🛒 <span id="cart-count">0</span></a>
+    </li>
+  </ul>
+</nav>
+
+<main>
+  <section>
+    <h2>Grand Master Sets</h2>
+
+    <div class="product-grid pokemon-grid">
+
+      <div class="pokemon-product">
+        <img src="../images/grand-obsidian.jpg">
+        <h3>Obsidian Flames Grand Master Set</h3>
+        <p class="price">$899.99</p>
+        <button onclick="addToCart({id:'gm-obsidian',name:'Obsidian Flames Grand Master Set',price:899.99,image:'../images/grand-obsidian.jpg'})">Add to Cart</button>
+      </div>
+
+      <div class="pokemon-product">
+        <img src="../images/grand-paradox.jpg">
+        <h3>Paradox Rift Grand Master Set</h3>
+        <p class="price">$949.99</p>
+        <button onclick="addToCart({id:'gm-paradox',name:'Paradox Rift Grand Master Set',price:949.99,image:'../images/grand-paradox.jpg'})">Add to Cart</button>
+      </div>
+
+      <div class="pokemon-product">
+        <img src="../images/grand-151.jpg">
+        <h3>151 Grand Master Set</h3>
+        <p class="price">$1,099.99</p>
+        <button onclick="addToCart({id:'gm-151',name:'151 Grand Master Set',price:1099.99,image:'../images/grand-151.jpg'})">Add to Cart</button>
+      </div>
+
+      <div class="pokemon-product">
+        <img src="../images/grand-temporal.jpg">
+        <h3>Temporal Forces Grand Master Set</h3>
+        <p class="price">$849.99</p>
+        <button onclick="addToCart({id:'gm-temporal',name:'Temporal Forces Grand Master Set',price:849.99,image:'../images/grand-temporal.jpg'})">Add to Cart</button>
+      </div>
+
+    </div>
+  </section>
+</main>
+
+<script src="../../js/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cards</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+
+<body>
+
+<header>
+  <h1>Cards</h1>
+</header>
+
+<nav>
+  <ul>
+    <li><a href="../index.html">Home</a></li>
+
+    <li class="dropdown">
+      <button class="dropdown-toggle" id="productsBtn">Products ▾</button>
+      <ul class="dropdown-menu" id="productsMenu">
+        <li><a href="pack.html">Booster Packs</a></li>
+        <li><a href="cards.html">Cards</a></li>
+        <li><a href="grandmaster.html">Grand Master Set</a></li>
+        <li><a href="master.html">Master Set</a></li>
+      </ul>
+    </li>
+
+    <li class="cart-icon">
+      <a href="../cart.html">🛒 <span id="cart-count">0</span></a>
+    </li>
+  </ul>
+</nav>
+
+<main>
+  <section>
+    <h2>Scarlet & Violet Era Cards</h2>
+
+    <div class="product-grid pokemon-grid">
+
+      <div class="pokemon-product">
+        <img src="../images/charizard-ex.jpg">
+        <h3>Charizard ex</h3>
+        <p class="price">$59.99</p>
+        <button onclick="addToCart({id:'charizard-ex',name:'Charizard ex',price:59.99,image:'../images/charizard-ex.jpg'})">Add to Cart</button>
+      </div>
+
+      <div class="pokemon-product">
+        <img src="../images/roaring-moon.jpg">
+        <h3>Roaring Moon ex</h3>
+        <p class="price">$34.99</p>
+        <button onclick="addToCart({id:'roaring-moon',name:'Roaring Moon ex',price:34.99,image:'../images/roaring-moon.jpg'})">Add to Cart</button>
+      </div>
+
+      <div class="pokemon-product">
+        <img src="../images/iron-valiant.jpg">
+        <h3>Iron Valiant ex</h3>
+        <p class="price">$28.99</p>
+        <button onclick="addToCart({id:'iron-valiant',name:'Iron Valiant ex',price:28.99,image:'../images/iron-valiant.jpg'})">Add to Cart</button>
+      </div>
+
+      <div class="pokemon-product">
+        <img src="../images/gardevoir-ex.jpg">
+        <h3>Gardevoir ex</h3>
+        <p class="price">$19.99</p>
+        <button onclick="addToCart({id:'gardevoir-ex',name:'Gardevoir ex',price:19.99,image:'../images/gardevoir-ex.jpg'})">Add to Cart</button>
+      </div>
+
+      <div class="pokemon-product">
+        <img src="../images/mew-ex.jpg">
+        <h3>Mew ex</h3>
+        <p class="price">$44.99</p>
+        <button onclick="addToCart({id:'mew-ex',name:'Mew ex',price:44.99,image:'../images/mew-ex.jpg'})">Add to Cart</button>
+      </div>
+
+      <div class="pokemon-product">
+        <img src="../images/miraidon-ex.jpg">
+        <h3>Miraidon ex</h3>
+        <p class="price">$22.99</p>
+        <button onclick="addToCart({id:'miraidon-ex',name:'Miraidon ex',price:22.99,image:'../images/miraidon-ex.jpg'})">Add to Cart</button>
+      </div>
+
+      <div class="pokemon-product">
+        <img src="../images/koraidon-ex.jpg">
+        <h3>Koraidon ex</h3>
+        <p class="price">$21.99</p>
+        <button onclick="addToCart({id:'koraidon-ex',name:'Koraidon ex',price:21.99,image:'../images/koraidon-ex.jpg'})">Add to Cart</button>
+      </div>
+
+      <div class="pokemon-product">
+        <img src="../images/ogerpon-ex.jpg">
+        <h3>Ogerpon ex (Teal Mask)</h3>
+        <p class="price">$26.99</p>
+        <button onclick="addToCart({id:'ogerpon-ex',name:'Ogerpon ex',price:26.99,image:'../images/ogerpon-ex.jpg'})">Add to Cart</button>
+      </div>
+
+      <div class="pokemon-product">
+        <img src="../images/iron-hands.jpg">
+        <h3>Iron Hands ex</h3>
+        <p class="price">$17.99</p>
+        <button onclick="addToCart({id:'iron-hands',name:'Iron Hands ex',price:17.99,image:'../images/iron-hands.jpg'})">Add to Cart</button>
+      </div>
+
+      <div class="pokemon-product">
+        <img src="../images/walking-wake.jpg">
+        <h3>Walking Wake ex</h3>
+        <p class="price">$29.99</p>
+        <button onclick="addToCart({id:'walking-wake',name:'Walking Wake ex',price:29.99,image:'../images/walking-wake.jpg'})">Add to Cart</button>
+      </div>
+
+    </div>
+  </section>
+</main>
+
+<script src="../../js/script.js"></script>
+</body>
+</html>

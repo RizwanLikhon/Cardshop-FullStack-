@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Master Sets</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+
+<body>
+
+<header>
+  <h1>Master Sets</h1>
+</header>
+
+<nav>
+  <ul>
+    <li><a href="../index.html">Home</a></li>
+
+    <li class="dropdown">
+      <button class="dropdown-toggle" id="productsBtn">Products ▾</button>
+      <ul class="dropdown-menu" id="productsMenu">
+        <li><a href="pack.html">Booster Packs</a></li>
+        <li><a href="cards.html">Cards</a></li>
+        <li><a href="grandmaster.html">Grand Master Set</a></li>
+        <li><a href="master.html">Master Set</a></li>
+      </ul>
+    </li>
+
+    <li class="cart-icon">
+      <a href="../cart.html">🛒 <span id="cart-count">0</span></a>
+    </li>
+  </ul>
+</nav>
+
+<main>
+  <section>
+    <h2>Master Sets</h2>
+
+    <div class="product-grid pokemon-grid">
+
+      <div class="pokemon-product">
+        <img src="../images/master-sv.jpg">
+        <h3>Scarlet & Violet Base Master Set</h3>
+        <p class="price">$499.99</p>
+        <button onclick="addToCart({id:'master-sv',name:'SV Base Master Set',price:499.99,image:'../images/master-sv.jpg'})">Add to Cart</button>
+      </div>
+
+      <div class="pokemon-product">
+        <img src="../images/master-paldea.jpg">
+        <h3>Paldea Evolved Master Set</h3>
+        <p class="price">$549.99</p>
+        <button onclick="addToCart({id:'master-paldea',name:'Paldea Evolved Master Set',price:549.99,image:'../images/master-paldea.jpg'})">Add to Cart</button>
+      </div>
+
+      <div class="pokemon-product">
+        <img src="../images/master-paradox.jpg">
+        <h3>Paradox Rift Master Set</h3>
+        <p class="price">$599.99</p>
+        <button onclick="addToCart({id:'master-paradox',name:'Paradox Rift Master Set',price:599.99,image:'../images/master-paradox.jpg'})">Add to Cart</button>
+      </div>
+
+    </div>
+  </section>
+</main>
+
+<script src="../../js/script.js"></script>
+</body>
+</html>

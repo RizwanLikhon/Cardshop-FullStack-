@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Your Cart</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <h1>Your Cart</h1>
+</header>
+
+<nav>
+  <ul>
+    <li><a href="index.html">Home</a></li>
+    <li class="cart-icon">
+      <a href="cart.html">🛒 <span id="cart-count">0</span></a>
+    </li>
+  </ul>
+</nav>
+
+<main class="cart-layout">
+
+  <!-- LEFT: CART ITEMS -->
+  <section class="cart-items">
+
+    <div class="cart-header">
+      <span>Product</span>
+      <span>Availability</span>
+      <span>Qty</span>
+      <span>Price</span>
+      <span>Total</span>
+    </div>
+
+    <div id="cart-items"></div>
+
+    <div class="promo">
+      <a href="#">Promo Code</a>
+    </div>
+
+  </section>
+
+  <!-- RIGHT: ORDER SUMMARY -->
+  <aside class="order-summary">
+    <h2>Order Summary</h2>
+
+    <div class="summary-row">
+      <span>Subtotal</span>
+      <span id="cart-total">$0.00</span>
+    </div>
+
+    <div class="summary-row">
+      <span>Tax (<span id="tax-rate-display">7.50%</span>)</span>
+      <span id="cart-tax">$0.00</span>
+    </div>
+
+    <div class="free-ship" id="free-ship-msg"></div>
+
+    <div class="summary-row total">
+      <strong>Total</strong>
+      <strong id="cart-final">$0.00</strong>
+    </div>
+
+    <button class="checkout-btn">CONTINUE CHECKOUT</button>
+  </aside>
+
+</main>
+
+<script src="../js/script.js"></script>
+<script>
+  renderCart();
+</script>
+</body>
+</html>

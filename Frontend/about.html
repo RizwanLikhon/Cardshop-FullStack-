@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About | Rizzy Pokémon Shop</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header>
+  <h1>About Rizzy Pokémon Shop</h1>
+  <p>Built by a collector. Designed like a real store.</p>
+</header>
+
+<nav>
+  <ul>
+    <li><a href="index.html">Home</a></li>
+
+    <li class="dropdown">
+      <button class="dropdown-toggle" id="productsBtn">Products ▾</button>
+      <ul class="dropdown-menu" id="productsMenu">
+        <li><a href="Product/pack.html">Booster Packs</a></li>
+        <li><a href="Product/cards.html">Cards</a></li>
+        <li><a href="Product/grandmaster.html">Grand Master Set</a></li>
+        <li><a href="Product/master.html">Master Set</a></li>
+      </ul>
+    </li>
+
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html">Contact</a></li>
+
+    <li class="cart-icon">
+      <a href="cart.html">🛒 <span id="cart-count">0</span></a>
+    </li>
+  </ul>
+</nav>
+
+<main class="about-page">
+
+  <!-- Hero -->
+  <section class="about-hero">
+    <h2>More Than a Store</h2>
+    <p>
+      Rizzy Pokémon Shop is a frontend-focused demo project designed to
+      replicate a real-world eCommerce experience for Pokémon TCG collectors.
+    </p>
+  </section>
+
+  <!-- Content Cards -->
+  <section class="about-grid">
+
+    <div class="about-card">
+      <h3>Who Built This?</h3>
+      <p>
+        This project was built by a Pokémon fan and Computer Information &
+        Technology student as a hands-on way to practice modern frontend
+        development using HTML, CSS, and JavaScript.
+      </p>
+    </div>
+
+    <div class="about-card">
+      <h3>What’s Inside</h3>
+      <ul>
+        <li>Dynamic product pages</li>
+        <li>Working shopping cart</li>
+        <li>Local storage persistence</li>
+        <li>Responsive layouts</li>
+      </ul>
+    </div>
+
+    <div class="about-card">
+      <h3>Why This Exists</h3>
+      <p>
+        The goal of this project is to showcase real UI logic, clean styling,
+        and a scalable file structure — the same principles used in production
+        frontend applications.
+      </p>
+    </div>
+
+  </section>
+
+  <!-- Callout -->
+  <section class="about-callout">
+    <h2>Built for Learning. Styled for Impact.</h2>
+    <p>
+      This site is a demonstration project and is not an actual store —
+      but it reflects real design and engineering decisions.
+    </p>
+  </section>
+
+</main>
+
+<footer>
+  <p>© 2025 Rizzy Pokémon Shop</p>
+</footer>
+
+<script src="js/script.js"></script>
+</body>
+</html>
