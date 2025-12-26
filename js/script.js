@@ -16,9 +16,57 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Start the homepage train animation if the element exists
+  // 🔥 NEW: load products from backend if grid exists
+  loadProducts();
+
   startTrainAnimation();
 });
+
+/* ================= BACKEND PRODUCTS ================= */
+async function loadProducts() {
+  const grid = document.querySelector(".pokemon-grid");
+  if (!grid) return;
+
+  const category = grid.dataset.category;
+  if (!category) return;
+
+  try {
+    const res = await fetch("http://localhost:5000/api/products");
+    const products = await res.json();
+
+    grid.innerHTML = "";
+
+    products
+      .filter(p => p.category === category)
+      .forEach(p => {
+        grid.innerHTML += `
+          <div class="pokemon-product">
+            <img src="${p.image}" alt="${escapeHtml(p.name)}">
+            <h3>${escapeHtml(p.name)}</h3>
+            <p class="price">$${Number(p.price).toFixed(2)}</p>
+
+            <div class="qty-controls">
+              <button type="button" onclick="changeQty('${p.id}', -1)">−</button>
+              <input id="qty-${p.id}" type="number" min="1" value="1">
+              <button type="button" onclick="changeQty('${p.id}', 1)">+</button>
+            </div>
+
+            <button onclick="addToCart({
+              id:'${p.id}',
+              name:'${escapeJs(p.name)}',
+              price:${p.price},
+              image:'${p.image}'
+            }, document.getElementById('qty-${p.id}').value)">
+              Add to Cart
+            </button>
+          </div>
+        `;
+      });
+
+  } catch (err) {
+    console.error("Failed to load products:", err);
+  }
+}
 
 /* ================= CART STORAGE ================= */
 function getCart() {
@@ -29,30 +77,26 @@ function saveCart(cart) {
   localStorage.setItem("cart", JSON.stringify(cart));
 }
 
-// Resolve a possibly-relative image path into an absolute URL
 function resolveImagePath(path) {
   if (!path) return path;
   try {
     return new URL(path, document.baseURI).href;
-  } catch (e) {
+  } catch {
     return path;
   }
 }
 
-/* ================= ADD TO CART (supports qty) ================= */
-// Accept optional qty and store resolved image URL
+/* ================= ADD TO CART ================= */
 function addToCart(product, qty = 1) {
   const count = parseInt(qty, 10) || 1;
   const cart = getCart();
   const item = cart.find(i => i.id === product.id);
 
   if (item) {
-    item.qty = (item.qty || 0) + count;
+    item.qty += count;
   } else {
     cart.push({
-      id: product.id,
-      name: product.name,
-      price: Number(product.price) || 0,
+      ...product,
       image: resolveImagePath(product.image),
       qty: count
     });
@@ -63,167 +107,115 @@ function addToCart(product, qty = 1) {
   renderCart();
 }
 
-// Helper for +/- buttons on product pages (expects an input with id `qty-<id>`)
+/* ================= QTY ================= */
 function changeQty(id, delta) {
   const input = document.getElementById(`qty-${id}`);
   if (!input) return;
   let val = parseInt(input.value, 10) || 1;
-  val = Math.max(1, val + delta);
-  input.value = val;
+  input.value = Math.max(1, val + delta);
 }
 
 /* ================= CART COUNT ================= */
 function updateCartCount() {
   const cart = getCart();
-  const count = cart.reduce((sum, i) => sum + (i.qty || 0), 0);
+  const count = cart.reduce((sum, i) => sum + i.qty, 0);
   const el = document.getElementById("cart-count");
   if (el) el.textContent = count;
 }
 
-/* ================= TAX CONFIG ================= */
-let taxRate = 0.07; // default 7%
-function setTaxRate(rate) {
-  taxRate = Number(rate) || 0;
-  renderCart();
-}
+/* ================= TAX ================= */
+let taxRate = 0.07;
 
-/* ================= CART PAGE RENDER ================= */
+/* ================= CART PAGE ================= */
 function renderCart() {
   const container = document.getElementById("cart-items");
+  if (!container) return;
+
   const subtotalEl = document.getElementById("cart-total");
   const taxEl = document.getElementById("cart-tax");
-  const taxRateDisplay = document.getElementById("tax-rate-display");
   const finalEl = document.getElementById("cart-final");
 
   const cart = getCart();
   let subtotal = 0;
-
-  if (container) container.innerHTML = "";
+  container.innerHTML = "";
 
   cart.forEach(item => {
-    const qty = Number(item.qty) || 1;
-    const price = Number(item.price) || 0;
-    const rowTotal = price * qty;
+    const rowTotal = item.price * item.qty;
     subtotal += rowTotal;
 
-    const imgSrc = resolveImagePath(item.image);
-
-    if (container) {
-      container.innerHTML += `
+    container.innerHTML += `
       <div class="cart-row">
         <div class="cart-product">
-          <img src="${imgSrc}" alt="${escapeHtml(item.name)}">
+          <img src="${item.image}">
           <div>
             <strong>${escapeHtml(item.name)}</strong>
-            <small>SKU: ${escapeHtml(item.id)}</small>
-            <div class="remove" onclick="removeItem('${escapeJs(item.id)}')">✕ Remove</div>
+            <div class="remove" onclick="removeItem('${escapeJs(item.id)}')">Remove</div>
           </div>
         </div>
-
         <span>In Stock</span>
-
-        <input
-          type="number"
-          min="1"
-          value="${qty}"
-          onchange="updateQty('${escapeJs(item.id)}', this.value)"
-        >
-
-        <span>$${price.toFixed(2)}</span>
+        <input type="number" min="1" value="${item.qty}"
+          onchange="updateQty('${escapeJs(item.id)}', this.value)">
+        <span>$${item.price.toFixed(2)}</span>
         <span>$${rowTotal.toFixed(2)}</span>
       </div>
     `;
-    }
   });
 
   const tax = subtotal * taxRate;
-  const final = subtotal + tax;
+  const total = subtotal + tax;
 
   if (subtotalEl) subtotalEl.textContent = `$${subtotal.toFixed(2)}`;
   if (taxEl) taxEl.textContent = `$${tax.toFixed(2)}`;
-  if (taxRateDisplay) taxRateDisplay.textContent = `${(taxRate * 100).toFixed(2)}%`;
-  if (finalEl) finalEl.textContent = `$${final.toFixed(2)}`;
+  if (finalEl) finalEl.textContent = `$${total.toFixed(2)}`;
 }
 
-/* ================= UPDATE QTY ================= */
 function updateQty(id, qty) {
   const cart = getCart();
   const item = cart.find(i => i.id === id);
   if (!item) return;
-
-  item.qty = parseInt(qty, 10) || 1;
-  if (item.qty <= 0) {
-    removeItem(id);
-    return;
-  }
-
+  item.qty = Math.max(1, parseInt(qty, 10) || 1);
   saveCart(cart);
   updateCartCount();
   renderCart();
 }
 
-/* ================= REMOVE ITEM ================= */
 function removeItem(id) {
-  let cart = getCart();
-  cart = cart.filter(i => i.id !== id);
-  saveCart(cart);
+  saveCart(getCart().filter(i => i.id !== id));
   updateCartCount();
   renderCart();
 }
 
-/* ================= SMALL HELPERS ================= */
+/* ================= HELPERS ================= */
 function escapeHtml(str) {
-  if (!str) return "";
-  return String(str)
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#39;");
-}
-function escapeJs(str) {
-  if (!str) return "";
-  return String(str).replace(/'/g, "\\'");
+  return String(str || "").replace(/[&<>"']/g, m =>
+    ({ "&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;" }[m])
+  );
 }
 
-/* ================= TRAIN / CONTINUOUS SCROLL ANIMATION =================
-   Lightweight JS-driven continuous scroll that expects the track to contain
-   two copies of the image set (as in Frontend/Index.html). It will animate
-   the track to the left and wrap seamlessly.
-*/
+function escapeJs(str) {
+  return String(str || "").replace(/'/g, "\\'");
+}
+
+/* ================= TRAIN ANIMATION ================= */
 function startTrainAnimation() {
   const track = document.getElementById("train-track");
   if (!track) return;
 
   let offset = 0;
-  // speed in pixels per second
   const speed = 80;
-  let lastTime = performance.now();
+  let last = performance.now();
+  let width = track.scrollWidth / 2;
 
-  // measure half-width (one set). If there is no duplication, fall back.
-  const measure = () => {
-    const full = track.scrollWidth;
-    // if the content isn't duplicated, we still animate the full width but will loop when offset >= full
-    return full / 2 || full;
-  };
-
-  let halfWidth = measure();
-
-  // keep track resize to recalc widths
   new ResizeObserver(() => {
-    halfWidth = measure();
+    width = track.scrollWidth / 2;
   }).observe(track);
 
   function step(now) {
-    const dt = (now - lastTime) / 1000;
-    lastTime = now;
-    offset += speed * dt;
-    if (offset >= halfWidth) offset -= halfWidth;
+    offset += ((now - last) / 1000) * speed;
+    last = now;
+    if (offset >= width) offset -= width;
     track.style.transform = `translateX(${-offset}px)`;
     requestAnimationFrame(step);
   }
-
-  // set will-change for smoother transform
-  track.style.willChange = "transform";
   requestAnimationFrame(step);
 }
