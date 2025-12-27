@@ -16,13 +16,11 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // 🔥 NEW: load products from backend if grid exists
   loadProducts();
-
   startTrainAnimation();
 });
 
-/* ================= BACKEND PRODUCTS ================= */
+/* ================= LOAD PRODUCTS FROM BACKEND ================= */
 async function loadProducts() {
   const grid = document.querySelector(".pokemon-grid");
   if (!grid) return;
@@ -31,37 +29,35 @@ async function loadProducts() {
   if (!category) return;
 
   try {
-    const res = await fetch("http://localhost:5000/api/products");
+    const res = await fetch(`http://localhost:5000/api/products?category=${category}`);
     const products = await res.json();
 
     grid.innerHTML = "";
 
-    products
-      .filter(p => p.category === category)
-      .forEach(p => {
-        grid.innerHTML += `
-          <div class="pokemon-product">
-            <img src="${p.image}" alt="${escapeHtml(p.name)}">
-            <h3>${escapeHtml(p.name)}</h3>
-            <p class="price">$${Number(p.price).toFixed(2)}</p>
+    products.forEach(p => {
+      grid.innerHTML += `
+        <div class="pokemon-product">
+          <img src="${p.image_url}" alt="${escapeHtml(p.name)}">
+          <h3>${escapeHtml(p.name)}</h3>
+          <p class="price">$${Number(p.price).toFixed(2)}</p>
 
-            <div class="qty-controls">
-              <button type="button" onclick="changeQty('${p.id}', -1)">−</button>
-              <input id="qty-${p.id}" type="number" min="1" value="1">
-              <button type="button" onclick="changeQty('${p.id}', 1)">+</button>
-            </div>
-
-            <button onclick="addToCart({
-              id:'${p.id}',
-              name:'${escapeJs(p.name)}',
-              price:${p.price},
-              image:'${p.image}'
-            }, document.getElementById('qty-${p.id}').value)">
-              Add to Cart
-            </button>
+          <div class="qty-controls">
+            <button onclick="changeQty(${p.id}, -1)">−</button>
+            <input id="qty-${p.id}" type="number" value="1" min="1">
+            <button onclick="changeQty(${p.id}, 1)">+</button>
           </div>
-        `;
-      });
+
+          <button onclick="addToCart({
+            id:${p.id},
+            name:'${escapeJs(p.name)}',
+            price:${p.price},
+            image:'${p.image_url}'
+          }, document.getElementById('qty-${p.id}').value)">
+            Add to Cart
+          </button>
+        </div>
+      `;
+    });
 
   } catch (err) {
     console.error("Failed to load products:", err);
@@ -77,15 +73,6 @@ function saveCart(cart) {
   localStorage.setItem("cart", JSON.stringify(cart));
 }
 
-function resolveImagePath(path) {
-  if (!path) return path;
-  try {
-    return new URL(path, document.baseURI).href;
-  } catch {
-    return path;
-  }
-}
-
 /* ================= ADD TO CART ================= */
 function addToCart(product, qty = 1) {
   const count = parseInt(qty, 10) || 1;
@@ -95,11 +82,7 @@ function addToCart(product, qty = 1) {
   if (item) {
     item.qty += count;
   } else {
-    cart.push({
-      ...product,
-      image: resolveImagePath(product.image),
-      qty: count
-    });
+    cart.push({ ...product, qty: count });
   }
 
   saveCart(cart);
@@ -122,9 +105,6 @@ function updateCartCount() {
   const el = document.getElementById("cart-count");
   if (el) el.textContent = count;
 }
-
-/* ================= TAX ================= */
-let taxRate = 0.07;
 
 /* ================= CART PAGE ================= */
 function renderCart() {
@@ -149,19 +129,19 @@ function renderCart() {
           <img src="${item.image}">
           <div>
             <strong>${escapeHtml(item.name)}</strong>
-            <div class="remove" onclick="removeItem('${escapeJs(item.id)}')">Remove</div>
+            <div class="remove" onclick="removeItem(${item.id})">Remove</div>
           </div>
         </div>
         <span>In Stock</span>
         <input type="number" min="1" value="${item.qty}"
-          onchange="updateQty('${escapeJs(item.id)}', this.value)">
+          onchange="updateQty(${item.id}, this.value)">
         <span>$${item.price.toFixed(2)}</span>
         <span>$${rowTotal.toFixed(2)}</span>
       </div>
     `;
   });
 
-  const tax = subtotal * taxRate;
+  const tax = subtotal * 0.07;
   const total = subtotal + tax;
 
   if (subtotalEl) subtotalEl.textContent = `$${subtotal.toFixed(2)}`;
@@ -173,6 +153,7 @@ function updateQty(id, qty) {
   const cart = getCart();
   const item = cart.find(i => i.id === id);
   if (!item) return;
+
   item.qty = Math.max(1, parseInt(qty, 10) || 1);
   saveCart(cart);
   updateCartCount();
@@ -219,3 +200,9 @@ function startTrainAnimation() {
   }
   requestAnimationFrame(step);
 }
+
+/* 🔓 expose for inline HTML */
+window.addToCart = addToCart;
+window.removeItem = removeItem;
+window.updateQty = updateQty;
+window.changeQty = changeQty;
