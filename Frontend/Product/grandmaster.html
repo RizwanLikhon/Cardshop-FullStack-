@@ -3,10 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Grand Master Sets</title>
+  <title>Grand Master Set</title>
   <link rel="stylesheet" href="../style.css">
 </head>
-
 <body>
 
 <header>
@@ -35,36 +34,22 @@
 
 <main>
   <section>
-    <h2>Grand Master Sets</h2>
+    <h2>Premium Collections</h2>
 
     <div class="product-grid pokemon-grid">
 
       <div class="pokemon-product">
-        <img src="../images/grand-obsidian.jpg">
-        <h3>Obsidian Flames Grand Master Set</h3>
+        <img src="http://localhost:5000/images/grand-obsidian.jpg">
+        <h3> Obsidian Flames Grand Master Set</h3>
         <p class="price">$899.99</p>
-        <button onclick="addToCart({id:'gm-obsidian',name:'Obsidian Flames Grand Master Set',price:899.99,image:'../images/grand-obsidian.jpg'})">Add to Cart</button>
-      </div>
 
-      <div class="pokemon-product">
-        <img src="../images/grand-paradox.jpg">
-        <h3>Paradox Rift Grand Master Set</h3>
-        <p class="price">$949.99</p>
-        <button onclick="addToCart({id:'gm-paradox',name:'Paradox Rift Grand Master Set',price:949.99,image:'../images/grand-paradox.jpg'})">Add to Cart</button>
-      </div>
+        <div class="qty-controls">
+          <button onclick="changeQty('gm-obsidian',-1)">−</button>
+          <input id="qty-gm-obsidian" type="number" value="1" min="1">
+          <button onclick="changeQty('gm-obsidian',1)">+</button>
+        </div>
 
-      <div class="pokemon-product">
-        <img src="../images/grand-151.jpg">
-        <h3>151 Grand Master Set</h3>
-        <p class="price">$1,099.99</p>
-        <button onclick="addToCart({id:'gm-151',name:'151 Grand Master Set',price:1099.99,image:'../images/grand-151.jpg'})">Add to Cart</button>
-      </div>
-
-      <div class="pokemon-product">
-        <img src="../images/grand-temporal.jpg">
-        <h3>Temporal Forces Grand Master Set</h3>
-        <p class="price">$849.99</p>
-        <button onclick="addToCart({id:'gm-temporal',name:'Temporal Forces Grand Master Set',price:849.99,image:'../images/grand-temporal.jpg'})">Add to Cart</button>
+        <button onclick="addToCart({id:'gm-obsidian',name:'Obsidian Flames Grand Master Set',price:899.99,image:'http://localhost:5000/images/grand-obsidian.jpg'}, document.getElementById('qty-gm-obsidian').value)">Add to Cart</button>
       </div>
 
     </div>

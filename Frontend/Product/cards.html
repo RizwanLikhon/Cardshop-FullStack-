@@ -9,7 +9,7 @@
 <body>
 
 <header>
-  <h1>Scarlet Violet Era Cards</h1>
+  <h1>Pokémon Cards</h1>
 </header>
 
 <nav>
@@ -34,11 +34,39 @@
 
 <main>
   <section>
-    <h2>Booster Packs</h2>
+    <h2>Scarlet & Violet Era Cards</h2>
 
+    <div class="product-grid pokemon-grid">
 
-    <div class="product-grid pokemon-grid" data-category="card"></div>
+      <div class="pokemon-product">
+        <img src="http://localhost:5000/images/charizard-ex.jpg">
+        <h3>Charizard ex</h3>
+        <p class="price">$89.99</p>
 
+        <div class="qty-controls">
+          <button onclick="changeQty('charizard-ex',-1)">−</button>
+          <input id="qty-charizard-ex" type="number" value="1" min="1">
+          <button onclick="changeQty('charizard-ex',1)">+</button>
+        </div>
+
+        <button onclick="addToCart({id:'charizard-ex',name:'Charizard ex',price:89.99,image:'http://localhost:5000/images/charizard-ex.jpg'}, document.getElementById('qty-charizard-ex').value)">Add to Cart</button>
+      </div>
+
+      <div class="pokemon-product">
+        <img src="http://localhost:5000/images/gardevoir-ex.jpg">
+        <h3>Gardevoir ex</h3>
+        <p class="price">$59.99</p>
+
+        <div class="qty-controls">
+          <button onclick="changeQty('gardevoir-ex',-1)">−</button>
+          <input id="qty-gardevoir-ex" type="number" value="1" min="1">
+          <button onclick="changeQty('gardevoir-ex',1)">+</button>
+        </div>
+
+        <button onclick="addToCart({id:'gardevoir-ex',name:'Gardevoir ex',price:59.99,image:'http://localhost:5000/images/gardevoir-ex.jpg'}, document.getElementById('qty-gardevoir-ex').value)">Add to Cart</button>
+      </div>
+
+    </div>
   </section>
 </main>
 

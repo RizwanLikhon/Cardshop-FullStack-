@@ -3,10 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Master Sets</title>
+  <title>Master Set</title>
   <link rel="stylesheet" href="../style.css">
 </head>
-
 <body>
 
 <header>
@@ -35,29 +34,22 @@
 
 <main>
   <section>
-    <h2>Master Sets</h2>
+    <h2>Complete Sets</h2>
 
     <div class="product-grid pokemon-grid">
 
       <div class="pokemon-product">
-        <img src="../images/master-sv.jpg">
-        <h3>Scarlet & Violet Base Master Set</h3>
-        <p class="price">$499.99</p>
-        <button onclick="addToCart({id:'master-sv',name:'SV Base Master Set',price:499.99,image:'../images/master-sv.jpg'})">Add to Cart</button>
-      </div>
+        <img src="http://localhost:5000/images/master-paldea.jpg">
+        <h3> Paldean Fates Master Set</h3>
+        <p class="price">$1,499.99</p>
 
-      <div class="pokemon-product">
-        <img src="../images/master-paldea.jpg">
-        <h3>Paldea Evolved Master Set</h3>
-        <p class="price">$549.99</p>
-        <button onclick="addToCart({id:'master-paldea',name:'Paldea Evolved Master Set',price:549.99,image:'../images/master-paldea.jpg'})">Add to Cart</button>
-      </div>
+        <div class="qty-controls">
+          <button onclick="changeQty('master-paldea',-1)">−</button>
+          <input id="qty-master-paldea" type="number" value="1" min="1">
+          <button onclick="changeQty('master-paldea',1)">+</button>
+        </div>
 
-      <div class="pokemon-product">
-        <img src="../images/master-paradox.jpg">
-        <h3>Paradox Rift Master Set</h3>
-        <p class="price">$599.99</p>
-        <button onclick="addToCart({id:'master-paradox',name:'Paradox Rift Master Set',price:599.99,image:'../images/master-paradox.jpg'})">Add to Cart</button>
+        <button onclick="addToCart({id:'master-paldea',name:'Paldean Fates Master Set',price:1499.99,image:'http://localhost:5000/images/master-paldea.jpg'}, document.getElementById('qty-master-paldea').value)">Add to Cart</button>
       </div>
 
     </div>
