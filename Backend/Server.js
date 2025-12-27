@@ -7,7 +7,13 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// TEST ROUTE (must work)
+// SERVE FRONTEND IMAGES 
+app.use(
+  "/images",
+  express.static(path.join(__dirname, "../Frontend/images"))
+);
+
+// TEST ROUTE
 app.get("/", (req, res) => {
   res.send("Backend is running");
 });
