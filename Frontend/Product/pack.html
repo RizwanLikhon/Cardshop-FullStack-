@@ -1,17 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Booster Packs</title>
-  <link rel="stylesheet" href="../style.css">
-  <style>
-    /* Minimal styles for the qty control; move to your CSS if desired */
-    .qty-controls { display:flex; align-items:center; gap:8px; margin-bottom:12px; }
-    .qty-controls button { width:36px; height:36px; }
-    .qty-controls input { width:48px; text-align:center; }
-  </style>
+  <link rel="stylesheet" href="../style.css" />
 </head>
+
 <body>
 
 <header>
@@ -42,152 +37,51 @@
   <section>
     <h2>Booster Packs</h2>
 
-    <div class="product-grid pokemon-grid">
-
-      <div class="pokemon-product">
-        <img src="../images/pe-pack.jpg">
-        <h3>Pokémon TCG: Prismatic Evolution Booster Pack</h3>
-        <p class="price">$4.49</p>
-
-        <div class="qty-controls">
-          <button type="button" onclick="changeQty('pe-pack', -1)">−</button>
-          <input id="qty-pe-pack" type="number" min="1" value="1">
-          <button type="button" onclick="changeQty('pe-pack', 1)">+</button>
-        </div>
-
-        <button onclick="addToCart({id:'pe-pack',name:'Prismatic Evolution Pack',price:4.49,image:'../images/pe-pack.jpg'}, document.getElementById('qty-pe-pack').value)">Add to Cart</button>
-      </div>
-
-      <div class="pokemon-product">
-        <img src="../images/paldea-pack.jpg">
-        <h3>Pokémon TCG: Paldea Evolved Booster Pack</h3>
-        <p class="price">$4.99</p>
-
-        <div class="qty-controls">
-          <button type="button" onclick="changeQty('paldea-pack', -1)">−</button>
-          <input id="qty-paldea-pack" type="number" min="1" value="1">
-          <button type="button" onclick="changeQty('paldea-pack', 1)">+</button>
-        </div>
-
-        <button onclick="addToCart({id:'paldea-pack',name:'Paldea Evolved Pack',price:4.99,image:'../images/paldea-pack.jpg'}, document.getElementById('qty-paldea-pack').value)">Add to Cart</button>
-      </div>
-
-      <div class="pokemon-product">
-        <img src="../images/obsidian-pack.jpg">
-        <h3>Pokémon TCG: Obsidian Flames Booster Pack</h3>
-        <p class="price">$5.49</p>
-
-        <div class="qty-controls">
-          <button type="button" onclick="changeQty('obsidian-pack', -1)">−</button>
-          <input id="qty-obsidian-pack" type="number" min="1" value="1">
-          <button type="button" onclick="changeQty('obsidian-pack', 1)">+</button>
-        </div>
-
-        <button onclick="addToCart({id:'obsidian-pack',name:'Obsidian Flames Pack',price:5.49,image:'../images/obsidian-pack.jpg'}, document.getElementById('qty-obsidian-pack').value)">Add to Cart</button>
-      </div>
-
-      <div class="pokemon-product">
-        <img src="../images/paradox-pack.jpg">
-        <h3>Pokémon TCG: Paradox Rift Booster Pack</h3>
-        <p class="price">$5.99</p>
-
-        <div class="qty-controls">
-          <button type="button" onclick="changeQty('paradox-pack', -1)">−</button>
-          <input id="qty-paradox-pack" type="number" min="1" value="1">
-          <button type="button" onclick="changeQty('paradox-pack', 1)">+</button>
-        </div>
-
-        <button onclick="addToCart({id:'paradox-pack',name:'Paradox Rift Pack',price:5.99,image:'../images/paradox-pack.jpg'}, document.getElementById('qty-paradox-pack').value)">Add to Cart</button>
-      </div>
-
-      <div class="pokemon-product">
-        <img src="../images/temporal-pack.jpg">
-        <h3>Pokémon TCG: Temporal Forces Booster Pack</h3>
-        <p class="price">$5.99</p>
-
-        <div class="qty-controls">
-          <button type="button" onclick="changeQty('temporal-pack', -1)">−</button>
-          <input id="qty-temporal-pack" type="number" min="1" value="1">
-          <button type="button" onclick="changeQty('temporal-pack', 1)">+</button>
-        </div>
-
-        <button onclick="addToCart({id:'temporal-pack',name:'Temporal Forces Pack',price:5.99,image:'../images/temporal-pack.jpg'}, document.getElementById('qty-temporal-pack').value)">Add to Cart</button>
-      </div>
-
-      <div class="pokemon-product">
-        <img src="../images/twilight-pack.jpg">
-        <h3>Pokémon TCG: Twilight Masquerade Booster Pack</h3>
-        <p class="price">$6.49</p>
-
-        <div class="qty-controls">
-          <button type="button" onclick="changeQty('twilight-pack', -1)">−</button>
-          <input id="qty-twilight-pack" type="number" min="1" value="1">
-          <button type="button" onclick="changeQty('twilight-pack', 1)">+</button>
-        </div>
-
-        <button onclick="addToCart({id:'twilight-pack',name:'Twilight Masquerade Pack',price:6.49,image:'../images/twilight-pack.jpg'}, document.getElementById('qty-twilight-pack').value)">Add to Cart</button>
-      </div>
-
-      <div class="pokemon-product">
-        <img src="../images/151-pack.jpg">
-        <h3>Pokémon TCG: Scarlet & Violet—151 Booster Pack</h3>
-        <p class="price">$6.99</p>
-
-        <div class="qty-controls">
-          <button type="button" onclick="changeQty('151-pack', -1)">−</button>
-          <input id="qty-151-pack" type="number" min="1" value="1">
-          <button type="button" onclick="changeQty('151-pack', 1)">+</button>
-        </div>
-
-        <button onclick="addToCart({id:'151-pack',name:'151 Booster Pack',price:6.99,image:'../images/151-pack.jpg'}, document.getElementById('qty-151-pack').value)">Add to Cart</button>
-      </div>
-
-      <div class="pokemon-product">
-        <img src="../images/stellar-pack.jpg">
-        <h3>Pokémon TCG: Stellar Crown Booster Pack</h3>
-        <p class="price">$5.99</p>
-
-        <div class="qty-controls">
-          <button type="button" onclick="changeQty('stellar-pack', -1)">−</button>
-          <input id="qty-stellar-pack" type="number" min="1" value="1">
-          <button type="button" onclick="changeQty('stellar-pack', 1)">+</button>
-        </div>
-
-        <button onclick="addToCart({id:'stellar-pack',name:'Stellar Crown Pack',price:5.99,image:'../images/stellar-pack.jpg'}, document.getElementById('qty-stellar-pack').value)">Add to Cart</button>
-      </div>
-
-      <div class="pokemon-product">
-        <img src="../images/shrouded-pack.jpg">
-        <h3>Pokémon TCG: Shrouded Fable Booster Pack</h3>
-        <p class="price">$5.49</p>
-
-        <div class="qty-controls">
-          <button type="button" onclick="changeQty('shrouded-pack', -1)">−</button>
-          <input id="qty-shrouded-pack" type="number" min="1" value="1">
-          <button type="button" onclick="changeQty('shrouded-pack', 1)">+</button>
-        </div>
-
-        <button onclick="addToCart({id:'shrouded-pack',name:'Shrouded Fable Pack',price:5.49,image:'../images/shrouded-pack.jpg'}, document.getElementById('qty-shrouded-pack').value)">Add to Cart</button>
-      </div>
-
-      <div class="pokemon-product">
-        <img src="../images/base-pack.jpg">
-        <h3>Pokémon TCG: Scarlet & Violet Base Booster Pack</h3>
-        <p class="price">$4.49</p>
-
-        <div class="qty-controls">
-          <button type="button" onclick="changeQty('base-pack', -1)">−</button>
-          <input id="qty-base-pack" type="number" min="1" value="1">
-          <button type="button" onclick="changeQty('base-pack', 1)">+</button>
-        </div>
-
-        <button onclick="addToCart({id:'base-pack',name:'SV Base Pack',price:4.49,image:'../images/base-pack.jpg'}, document.getElementById('qty-base-pack').value)">Add to Cart</button>
-      </div>
-
+    <div class="pokemon-grid" id="pack-grid">
+      <!-- Products injected here -->
     </div>
   </section>
 </main>
 
 <script src="../../js/script.js"></script>
+
+<script>
+  const API_URL = "http://localhost:5000/api/products";
+  const grid = document.getElementById("pack-grid");
+
+  fetch(API_URL)
+    .then(res => res.json())
+    .then(products => {
+      const packs = products.filter(p => p.category === "pack");
+
+      grid.innerHTML = packs.map(p => `
+        <div class="pokemon-product">
+          <img src="${p.image}" alt="${p.name}">
+          <h3>${p.name}</h3>
+          <p class="price">$${p.price.toFixed(2)}</p>
+
+          <div class="qty-controls">
+            <button onclick="changeQty('${p.id}', -1)">−</button>
+            <input id="qty-${p.id}" type="number" min="1" value="1">
+            <button onclick="changeQty('${p.id}', 1)">+</button>
+          </div>
+
+          <button onclick="addToCart({
+            id: '${p.id}',
+            name: '${p.name}',
+            price: ${p.price},
+            image: '${p.image}'
+          }, document.getElementById('qty-${p.id}').value)">
+            Add to Cart
+          </button>
+        </div>
+      `).join("");
+    })
+    .catch(err => {
+      console.error("Failed to load packs:", err);
+      grid.innerHTML = "<p>Failed to load products.</p>";
+    });
+</script>
+
 </body>
 </html>

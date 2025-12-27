@@ -3,14 +3,87 @@
     "id": "pe-pack",
     "name": "Prismatic Evolution Booster Pack",
     "price": 4.49,
-    "image": "/images/pe-pack.jpg",
+    "image": "http://localhost:5000/images/pe-pack.jpg",
     "category": "pack"
   },
+  {
+    "id": "paldea-pack",
+    "name": "Paldea Evolved Booster Pack",
+    "price": 4.99,
+    "image": "http://localhost:5000/images/paldea-pack.jpg",
+    "category": "pack"
+  },
+  {
+    "id": "obsidian-pack",
+    "name": "Obsidian Flames Booster Pack",
+    "price": 5.49,
+    "image": "http://localhost:5000/images/obsidian-pack.jpg",
+    "category": "pack"
+  },
+  {
+    "id": "paradox-pack",
+    "name": "Paradox Rift Booster Pack",
+    "price": 5.99,
+    "image": "http://localhost:5000/images/paradox-pack.jpg",
+    "category": "pack"
+  },
+
   {
     "id": "charizard-ex",
     "name": "Charizard ex",
     "price": 59.99,
-    "image": "/images/charizard-ex.jpg",
+    "image": "http://localhost:5000/images/charizard-ex.jpg",
     "category": "card"
+  },
+  {
+    "id": "mew-ex",
+    "name": "Mew ex",
+    "price": 39.99,
+    "image": "http://localhost:5000/images/mew-ex.jpg",
+    "category": "card"
+  },
+  {
+    "id": "iron-valiant-ex",
+    "name": "Iron Valiant ex",
+    "price": 28.99,
+    "image": "http://localhost:5000/images/iron-valiant.jpg",
+    "category": "card"
+  },
+  {
+    "id": "gardevoir-ex",
+    "name": "Gardevoir ex",
+    "price": 34.99,
+    "image": "http://localhost:5000/images/gardevoir-ex.jpg",
+    "category": "card"
+  },
+
+  {
+    "id": "grandmaster-sv",
+    "name": "Scarlet & Violet Grand Master Set",
+    "price": 399.99,
+    "image": "http://localhost:5000/images/grandmaster-sv.jpg",
+    "category": "grandmaster"
+  },
+  {
+    "id": "grandmaster-151",
+    "name": "Pokémon 151 Grand Master Set",
+    "price": 499.99,
+    "image": "http://localhost:5000/images/grandmaster-151.jpg",
+    "category": "grandmaster"
+  },
+
+  {
+    "id": "master-sv-base",
+    "name": "Scarlet & Violet Base Master Set",
+    "price": 249.99,
+    "image": "http://localhost:5000/images/master-sv.jpg",
+    "category": "master"
+  },
+  {
+    "id": "master-paradox",
+    "name": "Paradox Rift Master Set",
+    "price": 279.99,
+    "image": "http://localhost:5000/images/master-paradox.jpg",
+    "category": "master"
   }
 ]
