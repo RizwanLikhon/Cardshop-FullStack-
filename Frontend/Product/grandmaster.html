@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Grand Master Set</title>
-  <link rel="stylesheet" href="../style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Booster Packs</title>
+  <link rel="stylesheet" href="../style.css" />
 </head>
 <body>
 
 <header>
-  <h1>Grand Master Sets</h1>
+  <h1>Booster Packs</h1>
 </header>
 
 <nav>
@@ -34,28 +34,48 @@
 
 <main>
   <section>
-    <h2>Premium Collections</h2>
-
-    <div class="product-grid pokemon-grid">
-
-      <div class="pokemon-product">
-        <img src="http://localhost:5000/images/grand-obsidian.jpg">
-        <h3> Obsidian Flames Grand Master Set</h3>
-        <p class="price">$899.99</p>
-
-        <div class="qty-controls">
-          <button onclick="changeQty('gm-obsidian',-1)">−</button>
-          <input id="qty-gm-obsidian" type="number" value="1" min="1">
-          <button onclick="changeQty('gm-obsidian',1)">+</button>
-        </div>
-
-        <button onclick="addToCart({id:'gm-obsidian',name:'Obsidian Flames Grand Master Set',price:899.99,image:'http://localhost:5000/images/grand-obsidian.jpg'}, document.getElementById('qty-gm-obsidian').value)">Add to Cart</button>
-      </div>
-
-    </div>
+    <h2>Booster Packs</h2>
+    <div class="pokemon-grid" id="pack-grid"></div>
   </section>
 </main>
 
 <script src="../../js/script.js"></script>
+<script>
+  fetch("http://localhost:5000/api/products?category=grandmaster")
+    .then(res => res.json())
+    .then(products => {
+      const grid = document.getElementById("pack-grid");
+
+      products.forEach(p => {
+        const card = document.createElement("div");
+        card.className = "pokemon-product";
+
+        card.innerHTML = `
+          <img src="${p.image_url}" alt="${p.name}">
+          <h3>${p.name}</h3>
+          <p class="price">$${Number(p.price).toFixed(2)}</p>
+
+          <div class="qty-controls">
+            <button onclick="changeQty(${p.id}, -1)">−</button>
+            <input id="qty-${p.id}" type="number" min="1" value="1">
+            <button onclick="changeQty(${p.id}, 1)">+</button>
+          </div>
+
+          <button onclick="addToCart({
+            id: ${p.id},
+            name: '${p.name.replace(/'/g, "\\'")}',
+            price: ${p.price},
+            image: '${p.image_url}'
+          }, document.getElementById('qty-${p.id}').value)">
+            Add to Cart
+          </button>
+        `;
+
+        grid.appendChild(card);
+      });
+    })
+    .catch(err => console.error(err));
+</script>
+
 </body>
 </html>

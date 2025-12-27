@@ -6,7 +6,6 @@
   <title>Booster Packs</title>
   <link rel="stylesheet" href="../style.css" />
 </head>
-
 <body>
 
 <header>
@@ -36,51 +35,46 @@
 <main>
   <section>
     <h2>Booster Packs</h2>
-
-    <div class="pokemon-grid" id="pack-grid">
-      <!-- Products injected here -->
-    </div>
+    <div class="pokemon-grid" id="pack-grid"></div>
   </section>
 </main>
 
 <script src="../../js/script.js"></script>
-
 <script>
-  const API_URL = "http://localhost:5000/api/products";
-  const grid = document.getElementById("pack-grid");
-
-  fetch(API_URL)
+  fetch("http://localhost:5000/api/products?category=pack")
     .then(res => res.json())
     .then(products => {
-      const packs = products.filter(p => p.category === "pack");
+      const grid = document.getElementById("pack-grid");
 
-      grid.innerHTML = packs.map(p => `
-        <div class="pokemon-product">
-          <img src="${p.image}" alt="${p.name}">
+      products.forEach(p => {
+        const card = document.createElement("div");
+        card.className = "pokemon-product";
+
+        card.innerHTML = `
+          <img src="${p.image_url}" alt="${p.name}">
           <h3>${p.name}</h3>
-          <p class="price">$${p.price.toFixed(2)}</p>
+          <p class="price">$${Number(p.price).toFixed(2)}</p>
 
           <div class="qty-controls">
-            <button onclick="changeQty('${p.id}', -1)">−</button>
+            <button onclick="changeQty(${p.id}, -1)">−</button>
             <input id="qty-${p.id}" type="number" min="1" value="1">
-            <button onclick="changeQty('${p.id}', 1)">+</button>
+            <button onclick="changeQty(${p.id}, 1)">+</button>
           </div>
 
           <button onclick="addToCart({
-            id: '${p.id}',
-            name: '${p.name}',
+            id: ${p.id},
+            name: '${p.name.replace(/'/g, "\\'")}',
             price: ${p.price},
-            image: '${p.image}'
+            image: '${p.image_url}'
           }, document.getElementById('qty-${p.id}').value)">
             Add to Cart
           </button>
-        </div>
-      `).join("");
+        `;
+
+        grid.appendChild(card);
+      });
     })
-    .catch(err => {
-      console.error("Failed to load packs:", err);
-      grid.innerHTML = "<p>Failed to load products.</p>";
-    });
+    .catch(err => console.error(err));
 </script>
 
 </body>
