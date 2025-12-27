@@ -1,21 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Booster Packs</title>
-  <link rel="stylesheet" href="../style.css" />
+  <meta charset="UTF-8">
+  <title>Master Sets</title>
+  <link rel="stylesheet" href="../style.css">
 </head>
 <body>
 
-<header>
-  <h1>Booster Packs</h1>
-</header>
+<header><h1>Master Sets</h1></header>
 
 <nav>
   <ul>
     <li><a href="../index.html">Home</a></li>
-
     <li class="dropdown">
       <button class="dropdown-toggle" id="productsBtn">Products ▾</button>
       <ul class="dropdown-menu" id="productsMenu">
@@ -25,7 +21,6 @@
         <li><a href="master.html">Master Set</a></li>
       </ul>
     </li>
-
     <li class="cart-icon">
       <a href="../cart.html">🛒 <span id="cart-count">0</span></a>
     </li>
@@ -34,47 +29,34 @@
 
 <main>
   <section>
-    <h2>Booster Packs</h2>
-    <div class="pokemon-grid" id="pack-grid"></div>
+    <h2>Master Sets</h2>
+    <div class="pokemon-grid" id="product-grid"></div>
   </section>
 </main>
 
 <script src="../../js/script.js"></script>
 <script>
-  fetch("http://localhost:5000/api/products?category=master")
-    .then(res => res.json())
-    .then(products => {
-      const grid = document.getElementById("pack-grid");
+fetch("http://localhost:5000/api/products?category=master")
+  .then(res => res.json())
+  .then(products => {
+    const grid = document.getElementById("product-grid");
 
-      products.forEach(p => {
-        const card = document.createElement("div");
-        card.className = "pokemon-product";
-
-        card.innerHTML = `
-          <img src="${p.image_url}" alt="${p.name}">
+    products.forEach(p => {
+      grid.innerHTML += `
+        <div class="pokemon-product">
+          <img src="${p.image_url}">
           <h3>${p.name}</h3>
-          <p class="price">$${Number(p.price).toFixed(2)}</p>
-
-          <div class="qty-controls">
-            <button onclick="changeQty(${p.id}, -1)">−</button>
-            <input id="qty-${p.id}" type="number" min="1" value="1">
-            <button onclick="changeQty(${p.id}, 1)">+</button>
-          </div>
-
+          <p class="price">$${p.price}</p>
           <button onclick="addToCart({
-            id: ${p.id},
-            name: '${p.name.replace(/'/g, "\\'")}',
-            price: ${p.price},
-            image: '${p.image_url}'
-          }, document.getElementById('qty-${p.id}').value)">
-            Add to Cart
-          </button>
-        `;
-
-        grid.appendChild(card);
-      });
-    })
-    .catch(err => console.error(err));
+            id:${p.id},
+            name:'${p.name.replace(/'/g,"\\'")}',
+            price:${p.price},
+            image:'${p.image_url}'
+          },1)">Add to Cart</button>
+        </div>
+      `;
+    });
+  });
 </script>
 
 </body>
