@@ -4,17 +4,54 @@
   <meta charset="UTF-8">
   <title>Payment Cancelled</title>
   <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, #dc2626, #f87171);
+      font-family: Arial, sans-serif;
+    }
+
+    .box {
+      background: white;
+      padding: 48px;
+      border-radius: 18px;
+      text-align: center;
+      box-shadow: 0 30px 60px rgba(0,0,0,0.3);
+      max-width: 420px;
+    }
+
+    h1 {
+      color: #b91c1c;
+      margin-bottom: 12px;
+    }
+
+    p {
+      margin-bottom: 28px;
+      color: #374151;
+    }
+
+    a {
+      display: inline-block;
+      padding: 14px 28px;
+      background: #2563eb;
+      color: white;
+      border-radius: 999px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+  </style>
 </head>
 <body>
 
-<header>
-  <h1>Payment Cancelled</h1>
-</header>
-
-<main style="text-align:center; padding:40px;">
-  <p>Your payment was cancelled.</p>
-  <a href="cart.html">Return to Cart</a>
-</main>
+  <div class="box">
+    <h1>Payment Cancelled ❌</h1>
+    <p>Your payment was not completed.</p>
+    <a href="cart.html">Back to Cart</a>
+  </div>
 
 </body>
 </html>
