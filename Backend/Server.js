@@ -1,8 +1,12 @@
+require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const path = require("path");
-
 const app = express();
+const checkoutRoute = require("./routes/checkout");
+
+// Checkout API
+app.use("/api/checkout", checkoutRoute);
 
 app.use(cors());
 app.use(express.json());
