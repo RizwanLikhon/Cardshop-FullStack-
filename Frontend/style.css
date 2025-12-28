@@ -499,11 +499,13 @@ section h2 {
 }
 
 
+
 /* ================= FOOTER ================= */
 footer {
   text-align: center;
-  padding: 40px;
+  padding: 50px;
   background: var(--dark);
   color: white;
+  
  
 }
