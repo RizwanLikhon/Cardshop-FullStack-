@@ -15,54 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
       menu.classList.remove("show");
     });
   }
-
-  loadProducts();
-  startTrainAnimation();
 });
-
-/* ================= LOAD PRODUCTS FROM BACKEND ================= */
-async function loadProducts() {
-  const grid = document.querySelector(".pokemon-grid");
-  if (!grid) return;
-
-  const category = grid.dataset.category;
-  if (!category) return;
-
-  try {
-    const res = await fetch(`http://localhost:5000/api/products?category=${category}`);
-    const products = await res.json();
-
-    grid.innerHTML = "";
-
-    products.forEach(p => {
-      grid.innerHTML += `
-        <div class="pokemon-product">
-          <img src="${p.image_url}" alt="${escapeHtml(p.name)}">
-          <h3>${escapeHtml(p.name)}</h3>
-          <p class="price">$${Number(p.price).toFixed(2)}</p>
-
-          <div class="qty-controls">
-            <button onclick="changeQty(${p.id}, -1)">−</button>
-            <input id="qty-${p.id}" type="number" value="1" min="1">
-            <button onclick="changeQty(${p.id}, 1)">+</button>
-          </div>
-
-          <button onclick="addToCart({
-            id:${p.id},
-            name:'${escapeJs(p.name)}',
-            price:${p.price},
-            image:'${p.image_url}'
-          }, document.getElementById('qty-${p.id}').value)">
-            Add to Cart
-          </button>
-        </div>
-      `;
-    });
-
-  } catch (err) {
-    console.error("Failed to load products:", err);
-  }
-}
 
 /* ================= CART STORAGE ================= */
 function getCart() {
@@ -71,6 +24,14 @@ function getCart() {
 
 function saveCart(cart) {
   localStorage.setItem("cart", JSON.stringify(cart));
+}
+
+/* ================= CART COUNT ================= */
+function updateCartCount() {
+  const cart = getCart();
+  const count = cart.reduce((sum, i) => sum + i.qty, 0);
+  const el = document.getElementById("cart-count");
+  if (el) el.textContent = count;
 }
 
 /* ================= ADD TO CART ================= */
@@ -88,22 +49,6 @@ function addToCart(product, qty = 1) {
   saveCart(cart);
   updateCartCount();
   renderCart();
-}
-
-/* ================= QTY ================= */
-function changeQty(id, delta) {
-  const input = document.getElementById(`qty-${id}`);
-  if (!input) return;
-  let val = parseInt(input.value, 10) || 1;
-  input.value = Math.max(1, val + delta);
-}
-
-/* ================= CART COUNT ================= */
-function updateCartCount() {
-  const cart = getCart();
-  const count = cart.reduce((sum, i) => sum + i.qty, 0);
-  const el = document.getElementById("cart-count");
-  if (el) el.textContent = count;
 }
 
 /* ================= CART PAGE ================= */
@@ -128,7 +73,7 @@ function renderCart() {
         <div class="cart-product">
           <img src="${item.image}">
           <div>
-            <strong>${escapeHtml(item.name)}</strong>
+            <strong>${item.name}</strong>
             <div class="remove" onclick="removeItem(${item.id})">Remove</div>
           </div>
         </div>
@@ -149,6 +94,7 @@ function renderCart() {
   if (finalEl) finalEl.textContent = `$${total.toFixed(2)}`;
 }
 
+/* ================= QTY / REMOVE ================= */
 function updateQty(id, qty) {
   const cart = getCart();
   const item = cart.find(i => i.id === id);
@@ -166,43 +112,38 @@ function removeItem(id) {
   renderCart();
 }
 
-/* ================= HELPERS ================= */
-function escapeHtml(str) {
-  return String(str || "").replace(/[&<>"']/g, m =>
-    ({ "&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;" }[m])
-  );
-}
+/* ================= STRIPE CHECKOUT ================= */
+async function checkout() {
+  const cart = getCart();
 
-function escapeJs(str) {
-  return String(str || "").replace(/'/g, "\\'");
-}
-
-/* ================= TRAIN ANIMATION ================= */
-function startTrainAnimation() {
-  const track = document.getElementById("train-track");
-  if (!track) return;
-
-  let offset = 0;
-  const speed = 80;
-  let last = performance.now();
-  let width = track.scrollWidth / 2;
-
-  new ResizeObserver(() => {
-    width = track.scrollWidth / 2;
-  }).observe(track);
-
-  function step(now) {
-    offset += ((now - last) / 1000) * speed;
-    last = now;
-    if (offset >= width) offset -= width;
-    track.style.transform = `translateX(${-offset}px)`;
-    requestAnimationFrame(step);
+  if (!cart.length) {
+    alert("Your cart is empty");
+    return;
   }
-  requestAnimationFrame(step);
+
+  try {
+    const res = await fetch("http://localhost:5000/api/checkout", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ cart })
+    });
+
+    const data = await res.json();
+
+    if (data.url) {
+      window.location.href = data.url;
+    } else {
+      alert("Checkout failed");
+      console.error(data);
+    }
+  } catch (err) {
+    console.error("Checkout error:", err);
+    alert("Something went wrong with checkout");
+  }
 }
 
-/* 🔓 expose for inline HTML */
+/* ================= EXPOSE FOR HTML ================= */
 window.addToCart = addToCart;
 window.removeItem = removeItem;
 window.updateQty = updateQty;
-window.changeQty = changeQty;
+window.checkout = checkout;

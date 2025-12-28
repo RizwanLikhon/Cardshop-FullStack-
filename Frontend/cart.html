@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Your Cart</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
 
@@ -22,26 +23,18 @@
 
 <main class="cart-layout">
 
-  <!-- LEFT: CART ITEMS -->
   <section class="cart-items">
-
     <div class="cart-header">
       <span>Product</span>
-      <span>Availability</span>
+      <span>Status</span>
       <span>Qty</span>
       <span>Price</span>
       <span>Total</span>
     </div>
 
     <div id="cart-items"></div>
-
-    <div class="promo">
-      <a href="#">Promo Code</a>
-    </div>
-
   </section>
 
-  <!-- RIGHT: ORDER SUMMARY -->
   <aside class="order-summary">
     <h2>Order Summary</h2>
 
@@ -51,25 +44,23 @@
     </div>
 
     <div class="summary-row">
-      <span>Tax (<span id="tax-rate-display">7.50%</span>)</span>
+      <span>Tax (7%)</span>
       <span id="cart-tax">$0.00</span>
     </div>
-
-    <div class="free-ship" id="free-ship-msg"></div>
 
     <div class="summary-row total">
       <strong>Total</strong>
       <strong id="cart-final">$0.00</strong>
     </div>
 
-    <button class="checkout-btn" onclick="checkout()">CONTINUE CHECKOUT</button>
+    <!-- ✅ THIS IS THE IMPORTANT PART -->
+    <button class="checkout-btn" onclick="checkout()">
+      CONTINUE CHECKOUT
+    </button>
   </aside>
 
 </main>
 
 <script src="../js/script.js"></script>
-<script>
-  renderCart();
-</script>
 </body>
 </html>
