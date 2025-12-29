@@ -218,9 +218,39 @@ function startTrainAnimation() {
   track.style.willChange = "transform";
   requestAnimationFrame(step);
 }
+/* ================= STRIPE CHECKOUT ================= */
+async function checkout() {
+  const cart = getCart();
+
+  if (!cart.length) {
+    alert("Your cart is empty");
+    return;
+  }
+
+  try {
+    const res = await fetch("http://localhost:5000/api/checkout", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ cart })
+    });
+
+    const data = await res.json();
+
+    if (data.url) {
+      window.location.href = data.url;
+    } else {
+      alert("Checkout failed");
+      console.error(data);
+    }
+  } catch (err) {
+    console.error("Checkout error:", err);
+    alert("Something went wrong with checkout");
+  }
+}
 
 /* ================= GLOBAL EXPOSURE ================= */
 window.addToCart = addToCart;
 window.changeQty = changeQty;
 window.removeItem = removeItem;
 window.updateQty = updateQty;
+window.checkout = checkout;
