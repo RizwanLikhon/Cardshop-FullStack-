@@ -1,21 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Payment Successful</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Confirmed</title>
+    <style>
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background-color: #f4f7f6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .success-container {
+            background: white;
+            padding: 50px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            text-align: center;
+            max-width: 450px;
+        }
+        .checkmark-circle {
+            width: 80px; height: 80px;
+            background: #2ecc71;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            margin: 0 auto 20px;
+            color: white; font-size: 40px;
+        }
+        .order-box {
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px dashed #dcdde1;
+            margin-bottom: 30px;
+            font-size: 18px;
+        }
+        #order-id { font-weight: bold; color: #2c3e50; text-transform: uppercase; }
+        .btn-shop {
+            display: block; background-color: #3498db; color: white;
+            padding: 15px; text-decoration: none; border-radius: 6px; font-weight: bold;
+        }
+    </style>
 </head>
 <body>
 
-  <div class="box">
-    <h1>Payment Successful 🎉</h1>
-    <p>Thank you for your purchase.</p>
-    <a href="index.html">Back to Home</a>
-  </div>
+<div class="success-container">
+    <div class="checkmark-circle">✓</div>
+    <h1>Thank You!</h1>
+    <p>Your order has been placed successfully.</p>
+    
+    <div class="order-box">
+        Order Number: <span id="order-id">Generating...</span>
+    </div>
 
-  <script>
-    localStorage.removeItem("cart");
-  </script>
+    <a href="/shop" class="btn-shop">Continue Shopping</a>
+</div>
+
+<script>
+    // Function to generate a random Order ID
+    function generateOrderID() {
+        const prefix = "SHP";
+        const randomStr = Math.random().toString(36).substring(2, 8).toUpperCase();
+        const dateStr = Date.now().toString().slice(-4);
+        return `${prefix}-${randomStr}${dateStr}`;
+    }
+
+    // Apply the generated ID to the page on load
+    document.getElementById('order-id').innerText = generateOrderID();
+</script>
 
 </body>
 </html>

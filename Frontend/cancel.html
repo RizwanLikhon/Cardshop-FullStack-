@@ -1,17 +1,80 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Payment Cancelled</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout Cancelled</title>
+    <style>
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background-color: #fcfcfc;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .cancel-container {
+            background: white;
+            padding: 50px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            text-align: center;
+            max-width: 450px;
+            border-top: 5px solid #f39c12;
+        }
+        .icon-circle {
+            width: 80px;
+            height: 80px;
+            background: #fef5e7;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: #f39c12;
+            font-size: 40px;
+            font-weight: bold;
+        }
+        h1 { color: #2c3e50; margin-bottom: 5px; }
+        p { color: #7f8c8d; font-size: 16px; margin-bottom: 25px; line-height: 1.6; }
+        .actions {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .btn {
+            padding: 15px;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+        .btn-primary {
+            background-color: #3498db;
+            color: white;
+        }
+        .btn-primary:hover { background-color: #2980b9; }
+        .btn-secondary {
+            background-color: transparent;
+            color: #7f8c8d;
+            border: 1px solid #dcdde1;
+        }
+        .btn-secondary:hover { background-color: #f9f9f9; }
+    </style>
 </head>
 <body>
 
-  <div class="box">
-    <h1>Payment Cancelled ❌</h1>
-    <p>Your payment was not completed.</p>
-    <a href="cart.html">Back to Cart</a>
-  </div>
+<div class="cancel-container">
+    <div class="icon-circle">!</div>
+    <h1>Order Cancelled</h1>
+    <p>Your checkout process was cancelled. No charges were made to your account. If you ran into an issue, you can try again below.</p>
+    
+    <div class="actions">
+        <a href="cart.html" class="btn btn-primary">Return to Checkout</a>
+        <a href="Index.html" class="btn btn-secondary">Back to Shop</a>
+    </div>
+</div>
 
 </body>
 </html>
