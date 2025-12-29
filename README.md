@@ -3,6 +3,8 @@
 A full-stack e-commerce web application for browsing and purchasing Pokémon cards and collectibles.  
 The application is fully functional in a local development environment.
 
+All credits to Pokemon Company
+
 ---
 
 ### 🚀 Features
