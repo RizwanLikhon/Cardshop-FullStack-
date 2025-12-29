@@ -1,77 +1,65 @@
-# Rizzy Pokémon Shop 🛒
+## 🃏 Rizzy Pokémon Shop — Full Stack E-Commerce App
 
-A modern, frontend-focused eCommerce demo project inspired by the Pokémon Trading Card Game.
-
-This project showcases real-world frontend development concepts including responsive layouts, dynamic UI components, shopping cart logic, and clean project structure. The application is built with scalability in mind and will later be extended into a full-stack application.
-
----
-
-## 🚀 Features
-
-- Multi-page website (Home, Products, Cart, About, Contact)
-- Product showcase with modern grid and infinite scrolling animation
-- Dynamic shopping cart with quantity controls
-- Cart persistence using browser localStorage
-- Tax and total calculation
-- Responsive design (desktop & mobile)
-- Dropdown navigation menu
-- Clean UI with Pokémon-inspired theme
+A full-stack e-commerce web application for browsing and purchasing Pokémon cards and collectibles.  
+The application is fully functional in a local development environment.
 
 ---
 
-## 🧱 Tech Stack
+### 🚀 Features
+- Product browsing by category (Booster Packs, Cards, Master Sets)
+- Dynamic product loading from backend API
+- Shopping cart with quantity management
+- Persistent cart using localStorage
+- Secure Stripe Checkout integration (test mode)
+- Order success and cancellation pages
+- Custom-designed responsive UI
 
-### Frontend
+---
+
+### 🛠 Tech Stack
+**Frontend**
 - HTML5
-- CSS3 (Flexbox, Grid, Animations)
-- JavaScript (ES6)
-- Browser APIs (DOM, localStorage)
+- CSS3
+- Vanilla JavaScript
 
-### Backend (Planned)
+**Backend**
 - Node.js
 - Express.js
-- REST APIs
-- Database integration (MongoDB or SQL)
+
+**Database**
+- PostgreSQL
+
+**Payments**
+- Stripe Checkout API (Test Mode)
 
 ---
 
-## 🧠 What I Learned
-
-- Building scalable frontend layouts
-- Managing application state on the client side
-- Creating reusable UI components
-- Debugging real-world UI and JavaScript issues
-- Organizing a professional project structure
-- Understanding how frontend and backend responsibilities differ
+### 🧩 Architecture
+- RESTful API for product data and checkout
+- PostgreSQL database for product storage
+- Frontend fetches data dynamically from backend
+- Stripe Checkout handled securely on the server
+- Environment variables used for sensitive keys
 
 ---
 
-## 🛣 Roadmap
-
-- [ ] Build backend with Node.js & Express
-- [ ] Replace hardcoded data with API-driven products
-- [ ] Implement database for products and cart
-- [ ] Add user authentication
-- [ ] Integrate checkout flow
+### 🧪 Running Locally
+1. Start PostgreSQL and create the database
+2. Run the backend server with Node.js
+3. Open the frontend using Live Server
+4. Complete checkout using Stripe test cards
 
 ---
 
-## ⚠️ Disclaimer
-
-This project is a demonstration and learning project only.  
-Pokémon and related trademarks belong to Nintendo, Game Freak, and The Pokémon Company.
-
----
-
-## 📸 Screenshots
-
-(Coming soon)
+### 📦 Future Enhancements
+- User authentication
+- Order history
+- Admin dashboard
+- Deployment to cloud hosting
 
 ---
 
-## 📌 Author
-
-**A S M Rizwan Chowdhury**  
-Frontend Developer | Computer Information & Technology Student
-
-
+### 👨‍💻 Author
+A S M Rizwan Chowdhury  
+B.S. Computer Information & Technology  
+M.S. Data Science
