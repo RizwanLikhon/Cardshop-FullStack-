@@ -6,7 +6,7 @@ The application is fully functional in a local development environment.
 ---
 
 ### 🚀 Features
-- Product browsing by category (Booster Packs, Cards, Master Sets)
+- Product browsing by category (Booster Packs, Cards, Master Sets, Grand Master Sets)
 - Dynamic product loading from backend API
 - Shopping cart with quantity management
 - Persistent cart using localStorage
