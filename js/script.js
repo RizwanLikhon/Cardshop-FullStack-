@@ -15,7 +15,54 @@ document.addEventListener("DOMContentLoaded", () => {
       menu.classList.remove("show");
     });
   }
+
+  loadProducts();
+  startTrainAnimation();
 });
+
+/* ================= LOAD PRODUCTS FROM BACKEND ================= */
+async function loadProducts() {
+  const grid = document.querySelector(".pokemon-grid");
+  if (!grid) return;
+
+  const category = grid.dataset.category;
+  if (!category) return;
+
+  try {
+    const res = await fetch(`http://localhost:5000/api/products?category=${category}`);
+    const products = await res.json();
+
+    grid.innerHTML = "";
+
+    products.forEach(p => {
+      grid.innerHTML += `
+        <div class="pokemon-product">
+          <img src="${p.image_url}" alt="${escapeHtml(p.name)}">
+          <h3>${escapeHtml(p.name)}</h3>
+          <p class="price">$${Number(p.price).toFixed(2)}</p>
+
+          <div class="qty-controls">
+            <button type="button" onclick="changeQty(${p.id}, -1)">−</button>
+            <input id="qty-${p.id}" type="number" value="1" min="1">
+            <button type="button" onclick="changeQty(${p.id}, 1)">+</button>
+          </div>
+
+          <button onclick="addToCart({
+            id:${p.id},
+            name:'${escapeJs(p.name)}',
+            price:${p.price},
+            image:'${p.image_url}'
+          }, document.getElementById('qty-${p.id}').value)">
+            Add to Cart
+          </button>
+        </div>
+      `;
+    });
+
+  } catch (err) {
+    console.error("Failed to load products:", err);
+  }
+}
 
 /* ================= CART STORAGE ================= */
 function getCart() {
@@ -26,17 +73,9 @@ function saveCart(cart) {
   localStorage.setItem("cart", JSON.stringify(cart));
 }
 
-/* ================= CART COUNT ================= */
-function updateCartCount() {
-  const cart = getCart();
-  const count = cart.reduce((sum, i) => sum + i.qty, 0);
-  const el = document.getElementById("cart-count");
-  if (el) el.textContent = count;
-}
-
 /* ================= ADD TO CART ================= */
 function addToCart(product, qty = 1) {
-  const count = parseInt(qty, 10) || 1;
+  const count = Math.max(1, parseInt(qty, 10) || 1);
   const cart = getCart();
   const item = cart.find(i => i.id === product.id);
 
@@ -49,6 +88,22 @@ function addToCart(product, qty = 1) {
   saveCart(cart);
   updateCartCount();
   renderCart();
+}
+
+/* ================= QTY CONTROLS ================= */
+function changeQty(id, delta) {
+  const input = document.getElementById(`qty-${id}`);
+  if (!input) return;
+  let val = parseInt(input.value, 10) || 1;
+  input.value = Math.max(1, val + delta);
+}
+
+/* ================= CART COUNT ================= */
+function updateCartCount() {
+  const cart = getCart();
+  const count = cart.reduce((sum, i) => sum + i.qty, 0);
+  const el = document.getElementById("cart-count");
+  if (el) el.textContent = count;
 }
 
 /* ================= CART PAGE ================= */
@@ -73,13 +128,16 @@ function renderCart() {
         <div class="cart-product">
           <img src="${item.image}">
           <div>
-            <strong>${item.name}</strong>
+            <strong>${escapeHtml(item.name)}</strong>
             <div class="remove" onclick="removeItem(${item.id})">Remove</div>
           </div>
         </div>
+
         <span>In Stock</span>
+
         <input type="number" min="1" value="${item.qty}"
           onchange="updateQty(${item.id}, this.value)">
+
         <span>$${item.price.toFixed(2)}</span>
         <span>$${rowTotal.toFixed(2)}</span>
       </div>
@@ -94,13 +152,18 @@ function renderCart() {
   if (finalEl) finalEl.textContent = `$${total.toFixed(2)}`;
 }
 
-/* ================= QTY / REMOVE ================= */
 function updateQty(id, qty) {
   const cart = getCart();
   const item = cart.find(i => i.id === id);
   if (!item) return;
 
-  item.qty = Math.max(1, parseInt(qty, 10) || 1);
+  const newQty = parseInt(qty, 10);
+  if (newQty <= 0) {
+    removeItem(id);
+    return;
+  }
+
+  item.qty = newQty;
   saveCart(cart);
   updateCartCount();
   renderCart();
@@ -112,38 +175,52 @@ function removeItem(id) {
   renderCart();
 }
 
-/* ================= STRIPE CHECKOUT ================= */
-async function checkout() {
-  const cart = getCart();
-
-  if (!cart.length) {
-    alert("Your cart is empty");
-    return;
-  }
-
-  try {
-    const res = await fetch("http://localhost:5000/api/checkout", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ cart })
-    });
-
-    const data = await res.json();
-
-    if (data.url) {
-      window.location.href = data.url;
-    } else {
-      alert("Checkout failed");
-      console.error(data);
-    }
-  } catch (err) {
-    console.error("Checkout error:", err);
-    alert("Something went wrong with checkout");
-  }
+/* ================= HELPERS ================= */
+function escapeHtml(str) {
+  return String(str || "").replace(/[&<>"']/g, m =>
+    ({ "&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;" }[m])
+  );
 }
 
-/* ================= EXPOSE FOR HTML ================= */
+function escapeJs(str) {
+  return String(str || "").replace(/'/g, "\\'");
+}
+
+/* ================= TRAIN ANIMATION (WORKING VERSION) ================= */
+function startTrainAnimation() {
+  const track = document.getElementById("train-track");
+  if (!track) return;
+
+  let offset = 0;
+  const speed = 80;
+  let lastTime = performance.now();
+
+  const measure = () => {
+    const full = track.scrollWidth;
+    return full / 2 || full;
+  };
+
+  let halfWidth = measure();
+
+  new ResizeObserver(() => {
+    halfWidth = measure();
+  }).observe(track);
+
+  function step(now) {
+    const dt = (now - lastTime) / 1000;
+    lastTime = now;
+    offset += speed * dt;
+    if (offset >= halfWidth) offset -= halfWidth;
+    track.style.transform = `translateX(${-offset}px)`;
+    requestAnimationFrame(step);
+  }
+
+  track.style.willChange = "transform";
+  requestAnimationFrame(step);
+}
+
+/* ================= GLOBAL EXPOSURE ================= */
 window.addToCart = addToCart;
+window.changeQty = changeQty;
 window.removeItem = removeItem;
 window.updateQty = updateQty;
-window.checkout = checkout;
